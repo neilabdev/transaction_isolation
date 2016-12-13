@@ -13,6 +13,7 @@ module TransactionIsolation
     require_relative 'transaction_isolation/active_record/connection_adapters/mysql2_adapter'
     require_relative 'transaction_isolation/active_record/connection_adapters/postgresql_adapter'
     require_relative 'transaction_isolation/active_record/connection_adapters/sqlite3_adapter'
+    require_relative 'transaction_isolation/active_record/connection_adapters/sqlserver_adapter'
   end
 
   if defined?( ::Rails )
