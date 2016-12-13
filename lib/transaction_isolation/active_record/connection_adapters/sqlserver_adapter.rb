@@ -27,7 +27,8 @@ if defined?( ActiveRecord::ConnectionAdapters::SQLServerAdapter )
               'READ UNCOMMITTED' => :read_uncommitted,
               'READ COMMITTED' => :read_committed,
               'REPEATABLE READ' => :repeatable_read,
-              'SERIALIZABLE' => :serializable
+              'SERIALIZABLE' => :serializable,
+              'SNAPSHOT' => :snapshot
           }
 
           def current_isolation_level
@@ -38,11 +39,11 @@ if defined?( ActiveRecord::ConnectionAdapters::SQLServerAdapter )
             q = <<-eos
               SELECT CASE transaction_isolation_level
               WHEN 0 THEN 'Unspecified'
-              WHEN 1 THEN 'ReadUncommitted'
-              WHEN 2 THEN 'ReadCommitted'
-              WHEN 3 THEN 'Repeatable'
-              WHEN 4 THEN 'Serializable'
-              WHEN 5 THEN 'Snapshot' END AS TRANSACTION_ISOLATION_LEVEL
+              WHEN 1 THEN 'READ UNCOMMITTED'
+              WHEN 2 THEN 'READ COMMITTED'
+              WHEN 3 THEN 'REPEATABLE READ'
+              WHEN 4 THEN 'SERIALIZABLE'
+              WHEN 5 THEN 'SNAPSHOT' END AS TRANSACTION_ISOLATION_LEVEL
               FROM sys.dm_exec_sessions
               where session_id = @@SPID
             eos
